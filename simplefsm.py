@@ -34,12 +34,14 @@ class State():
     def read(self, signal):
         """
         Read a signal and return next state. If ANY signal
-        is defined for this state, no matter what signal being
-        passed, it will always go to a fixed next state.
+        is defined for this state, the state will first try
+        to read the given signal and process to next signal,
+        if the given signal is unknown for this state, it
+        will go to the state the ANY transits to
         """
-        if ANY in self.transit_map:
-            return self.transit_map[ANY]
         if signal not in self.transit_map:
+            if ANY in self.transit_map:
+                return self.transit_map[ANY]
             raise UnknownSignal("Unknown signal: " + str(signal))
         return self.transit_map[signal]
 
@@ -48,8 +50,8 @@ class State():
         Add transition to next state. If state reads a signal, it
         will go to a corresponding next state. Signals should be 
         different, i.e one signal goes to one state. However, signal
-        can be defined as ANY, in this case, no matter what signal
-        this state detected, it will go to next_state automatically.
+        can be defined as ANY, in this case, if the signal is unknown
+        for this state, it will automatically go to the state that ANY points to.
         The ANY can be changed directly since it is a global variable.
         Default is: ANY = "*"
             add_transit(ANY, next_state)
@@ -102,4 +104,3 @@ class Machine():
         s = seq[index]
         next_state = state.read(s)
         self._process(seq, index+1, next_state)
-
