@@ -7,6 +7,17 @@ values or anything. It only read a given sequence and transit between states.
 ANY = "*"
 
 
+def set_any(p):
+    "Define ANY, default is *"
+    global ANY
+    ANY = p
+
+
+def get_any():
+    "Get ANY, default is *"
+    return ANY
+
+
 class RepeatedSignal(Exception):
     "This exception will be raised when there is repeated signal in the state"
     def __init__(self, msg):
