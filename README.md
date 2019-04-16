@@ -1,0 +1,2 @@
+# Intro
+This repository contains tools for user to create finite state machines by defining their own states and transition functions. FSM is useful in some cases such as parsing command, implmeneting a tokenizer and so on. `simplefsm.py` can handle reading of sequences, such as reading a string or a list. However, if one wants to store variables and create more complex transition functions, `fsm.py` should be used.
